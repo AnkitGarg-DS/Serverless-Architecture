@@ -100,3 +100,40 @@
         - 2 Files newer than 30 days remain.
         - 3 We can verify in the S3 console — refresh the bucket to see the result.
         ![alt text](image-28.png)
+
+    ### Assignment 3: Monitor Unencrypted S3 Buckets Using AWS Lambda and Boto3
+    - #### Step 1: S3 Bucket Setup
+        - Go to S3 Dashboard > Create Bucket.
+        - Create 3 buckets:
+            - Enable default encryption on some.
+            - Leave encryption disabled on others.
+        ![alt text](image-30.png)
+    
+    - #### Step 2: IAM Role for Lambda
+        - Go to IAM > Roles > Create Role.
+        - Choose Lambda as the trusted entity.
+        - Attach the following policies:
+            - AmazonS3ReadOnlyAccess (to list buckets and get encryption settings)
+            - AWSLambdaBasicExecutionRole (for CloudWatch logging)
+        - Name the role something like LambdaS3EncryptionMonitor.
+        ![alt text](image-31.png)
+
+    - #### Step 3: Lambda Function Setup
+        - Go to Lambda > Create Function.
+        - Runtime: Python 3.12
+        - Execution role: Use LambdaS3EncryptionMonitor
+        - Name it UnencryptedBucketDetector
+        ![alt text](image-32.png)
+
+    - #### Step 4: Lambda Function Code (Python + Boto3)
+        - Refer Assignment3.py
+
+    - #### Step 5: Manual Invocation & Verification
+        - In the Lambda console, click Test.
+        - Create a test event (default JSON is fine).
+        - Click Test again to invoke.
+        - Go to CloudWatch Logs:
+            - Look for /aws/lambda/UnencryptedBucketDetector
+        - Check the log stream
+        ![alt text](image-33.png)
+

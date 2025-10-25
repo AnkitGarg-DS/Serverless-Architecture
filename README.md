@@ -137,3 +137,46 @@
         - Check the log stream
         ![alt text](image-33.png)
 
+    ### Assignment 4: Automatic EBS Snapshot and Cleanup Using AWS Lambda and Boto3
+    - #### Step 1: EBS Volume Setup
+        - Go to EC2 Dashboard > Elastic Block Store > Volumes.
+        - Either:
+            - Use an existing volume, or
+            - Create a new one and attach it to an EC2 instance.
+        - Note down the Volume ID (vol-0787bd263dd1e5a05).
+        ![alt text](image-34.png)
+
+    - #### Step 2: IAM Role for Lambda
+        - Go to IAM > Roles > Create Role.
+        - Choose Lambda as the trusted entity.
+        - Attach the following policies:
+            - AmazonEC2FullAccess
+            - AWSLambdaBasicExecutionRole
+        - Name the role something like LambdaEBSSnapshotManager.
+        ![alt text](image-35.png)
+
+    - ### Step 3: Lambda Function Setup
+        - Go to Lambda > Create Function.
+        - Runtime: Python 3.12
+        - Execution role: Use LambdaEBSSnapshotManager
+        - Name it EBSBackupCleanup
+        ![alt text](image-36.png)
+
+    - ### Step 4: Lambda Function Code (Python + Boto3)
+        - Refer Assignment4.py
+    
+    - ### Step 5: Manual Invocation & Verification
+        - In Lambda console, click Test.
+        - Create a test event.
+        - Click Test again to invoke.
+        - Go to EC2 > Snapshots:
+            - Confirm a new snapshot was created.
+        ![alt text](image-37.png)
+        ![alt text](image-38.png)
+
+
+
+
+
+
+
